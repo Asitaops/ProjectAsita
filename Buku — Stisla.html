@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+        name="viewport">
+    <title>Buku &mdash; Stisla</title>
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet"
+        href="http://127.0.0.1:8000/library/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+   <style></style>
+
+
+    <!-- Template CSS -->
+    <link rel="stylesheet"
+        href="http://127.0.0.1:8000/css/style.css">
+    <link rel="stylesheet"
+        href="http://127.0.0.1:8000/css/components.css">
+    <link rel="stylesheet"
+        href="http://127.0.0.1:8000/datatables/datatables.min.css">
+        
+
+    <!-- Start GA -->
+    <script async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-94034622-3');
+    </script>
+    <!-- END GA -->
+</head>
+</head>
+
+<body>
+    <div id="app">
+        <div class="main-wrapper">
+            <!-- Header -->
+            <div class="navbar-bg"></div>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <form class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+            <li><a href="#"
+                    data-toggle="sidebar"
+                    class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+            <li><a href="#"
+                    data-toggle="search"
+                    class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li>
+        </ul>
+    </form>
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown"><a href="#"
+                data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image"
+                    src="http://127.0.0.1:8000/img/avatar/avatar-1.png"
+                    class="rounded-circle mr-1">
+                <div class="d-sm-none d-lg-inline-block">Hi, User</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-divider"></div>
+                <a href="#"
+                    onclick="logout()"
+                    class="dropdown-item has-icon text-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+            <!-- Sidebar -->
+            <div class="main-sidebar sidebar-style-2">
+    <aside id="sidebar-wrapper">
+        <div class="sidebar-brand">
+            <a href="index.html">Stisla</a>
+        </div>
+        <div class="sidebar-brand sidebar-brand-sm">
+            <a href="index.html">St</a>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-header">Manajemen</li>
+            <li class="">
+                <a class="nav-link"
+                    href="http://127.0.0.1:8000/buku"><i class="fas fa-book">
+                    </i> <span>Buku</span>
+                </a>
+            </li>
+            <li class="active">
+                <a class="nav-link"
+                    href="http://127.0.0.1:8000/siswa"><i class="fas fa-user">
+                    </i> <span>Siswa</span>
+                </a>
+            </li>
+            <li class="">
+                <a class="nav-link"
+                    href="http://127.0.0.1:8000/peminjaman"><i class="fas fa-calendar">
+                    </i> <span>Peminjaman</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+</div>
+
+            <!-- Content -->
+               <div class="main-content">
+      <section class="section">
+         <div class="section-header">
+            <h1>Blank Page</h1>
+         </div>
+         <div class="section-body">
+            <div class="card">
+               <div class="card-body">
+               <button class="btn btn-success font-bold my-5" onclick="openModal('tambah')">
+                  <i class="fa fa-plus"></i> Tambah
+               </button>
+                  <div class="table-responsive">
+                     <table class="table w-100" id="table">
+                        <thead>
+                           <tr>
+                              <th>NIM</th>
+                              <th>Nama</th>
+                              <th>Kelas</th>
+                              <th>No Telp</th>
+                              <th>Email</th>
+                              <th>Aksi</th>
+                           </tr>
+                        </thead>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </div>
+
+   <div class="modal fade" id="modal-data" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="modal-title"></h5>
+         </div>
+         <form id="form-data" autocomplete="off" >
+            <div class="modal-body">
+               <input type="hidden" name="id">
+               <div class="form-group mt-3" id="nim">
+                  <label for="">NIM <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="nim" placeholder="NIM">
+               </div>
+               <div class="form-group mt-3" id="nama">
+                  <label for="">Nama <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="nama" placeholder="Nama">
+               </div>
+               <div class="form-group mt-3" id="kelas">
+                  <label for="">Kelas <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="kelas" placeholder="Kelas">
+               </div>
+               <div class="form-group mt-3" id="no_telp">
+                  <label for="">Nomor Telepon <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="no_telp" placeholder="Nomor Telepon">
+               </div>
+               <div class="form-group mt-3" id="email">
+                  <label for="">Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" name="email" placeholder="Email">
+               </div>
+               <div class="form-group mt-3" id="tanggal_bergabung">
+                  <label for="">Tanggal Bergabung <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" name="tanggal_bergabung" placeholder="Tanggal Bergabung">
+               </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" onclick="closeModal()" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+               <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+         </form>
+         </div>
+      </div>
+   </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+    <div class="footer-left">
+        Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
+            Nauval Azhar</a>
+    </div>
+    <div class="footer-right">
+        2.3.0
+    </div>
+</footer>
+        </div>
+    </div>
+    <form action="http://127.0.0.1:8000/logout" method="POST" id="form-logout"><input type="hidden" name="_token" value="D9ucDmqohHn6Jz8JcCyWk4R25ifTnylmgznE3qlo"></form>
+
+    <!-- General JS Scripts -->
+    <script src="http://127.0.0.1:8000/library/jquery/dist/jquery.min.js"></script>
+    <script src="http://127.0.0.1:8000/library/popper.js/dist/umd/popper.js"></script>
+    <script src="http://127.0.0.1:8000/library/tooltip.js/dist/umd/tooltip.js"></script>
+    <script src="http://127.0.0.1:8000/library/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="http://127.0.0.1:8000/library/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
+    <script src="http://127.0.0.1:8000/library/moment/min/moment.min.js"></script>
+    <script src="http://127.0.0.1:8000/js/stisla.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="http://127.0.0.1:8000/datatables/datatables.min.js"></script>
+    <script>
+        const logout = () =>{
+            $('#form-logout').submit();
+        }
+    </script>
+
+    
+   <script>
+      let table
+
+      $(document).ready(function() {
+         table = $('#table').DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            searching: true,
+            lengthChange: true,
+            ajax: {
+               url: "http://127.0.0.1:8000/siswa/data",
+               type: "POST",
+               beforeSend: function(request){
+                  request.setRequestHeader('X-CSRF-TOKEN', 'D9ucDmqohHn6Jz8JcCyWk4R25ifTnylmgznE3qlo')
+               },
+               error: function(e) {
+                  console.log("error", e)
+               },
+            },
+            columns: [
+               { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+               { data: 'nim', name: 'nim' },
+               { data: 'nama', name: 'nama' },
+               { data: 'kelas', name: 'kelas' },
+               { data: 'no_telp', name: 'no_telp' },
+               { data: 'email', name: 'email' },
+               { data: 'action', name: 'action' },
+            ],
+            columnDefs: [
+               {
+                  orderable: false,
+                  target: 0,
+                  width: '5%'
+               },
+               {
+                  target: 1,
+                  width: '40%'
+               },
+               {
+                  target: 3,
+                  width: '15%'
+               },
+               {
+                  target: 5,
+                  width: '15%',
+                  className: 'text-center',
+                  orderable: false
+               },
+            ],
+         })
+  
+         $('#form-data').on('submit', function(e){
+            e.preventDefault();
+
+            $('#form-data').find('span.error').remove()
+            var formData = new FormData(this)
+            let button = $(this).find(':submit')
+            let val = button.text()
+            button.html('<i class="fa fa-spinner fa-spin"></i> ' + val)
+            button.prop('disabled', true)
+            
+            id = $('input[name=id]').val()
+            
+            type == 'tambah' 
+               ? url = "http://127.0.0.1:8000/siswa/siswa" 
+               : url = "http://127.0.0.1:8000/siswa/update";
+
+            if(type != 'tambah'){
+               formData.append('_token', "D9ucDmqohHn6Jz8JcCyWk4R25ifTnylmgznE3qlo")
+               formData.append('_method', "PUT")
+               formData.append('id', id)
+            }else{
+               formData.append('_token', "D9ucDmqohHn6Jz8JcCyWk4R25ifTnylmgznE3qlo")
+            }
+            
+            axios({
+               url: url,
+               method: "post",
+               data: formData,
+               headers: { "Content-Type": "multipart/form-data" },
+               cache: false,
+               processData: false,
+            }).then((response) => {
+               Swal.fire({
+                  icon: 'success',
+                  title: 'Berhasil',
+                  text: response.data.message
+               });
+               table.ajax.reload();
+               $('#modal-data').modal('hide')
+               
+               button.html(val)
+               button.prop('disabled', false)
+            }).catch((error) => {
+               button.html(val)
+               button.prop('disabled', false)
+
+               const errors = error.response.data.data
+
+               if(errors){
+                  if(typeof(errors) != 'string'){
+                     const err = Object.keys(errors)
+                     err.map(index => {
+                        const element = '#' + index
+                        const errSpan = Array.isArray(errors[index]) ? errors[index].join("<br>") : errors[index]
+                        $(element).find('span.error').remove()
+
+                        $(element).append('<span class="error text-danger">' + errSpan + '</span>')
+                        $(element).addClass("validation-input-error")
+                     });
+                  }
+               }else{
+                  Swal.fire({
+                     icon: 'error',
+                     title: 'Warning',
+                     text: error.response.message
+                  });
+               }
+            })
+         })
+      })
+
+      const openModal = async (_type, id=null) => {
+         type = _type
+         
+         switch(_type){
+            case 'tambah':
+               $('#modal-title').text('Tambah Data');
+               $('#form-data').find('span.error').remove()
+               $('input[name=id]').val('')
+               $('input[name=nim]').val('')
+               $('input[name=nama]').val('')
+               $('input[name=kelas]').val('')
+               $('input[name=no_telp]').val('')
+               $('input[name=email]').val('')
+               $('input[name=tanggal_bergabung]').val('')
+               $('#modal-data').modal('show')
+            break;
+
+            case 'update':
+               $('#form-data').find('span.error').remove()
+               await axios({
+                  url: "http://127.0.0.1:8000/siswa/get-detail" + "?id=" + id,
+                  method: "GET",
+                  dataType: "JSON",
+               }).then((response) => {
+                  const item = response.data.data
+
+                  $('#modal-title').text('Ubah Data');
+                  $('input[name="id"]').val(item.id)
+                  $('input[name=nim]').val(item.nim)
+                  $('input[name=nama]').val(item.nama)
+                  $('input[name=kelas]').val(item.kelas)
+                  $('input[name=no_telp]').val(item.no_telp)
+                  $('input[name=email]').val(item.email)
+                  $('input[name=tanggal_bergabung]').val(item.tanggal_bergabung)
+                  $('#modal-data').modal('show')
+               })
+            break;
+
+         }
+      }
+
+      const closeModal = () => {
+         $('#modal-data').modal('hide')
+      }
+
+      const deleteData = (id) => {
+         Swal.fire({
+            title: 'Perhatian!',
+            text: 'Apakah anda ingin menghapus data ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya'
+         }).then((result) => {
+            if (result.isConfirmed) {
+               axios({
+                  url: "http://127.0.0.1:8000/siswa/delete",
+                  method: "POST",
+                  data: {
+                     '_method' : 'DELETE', 
+                     '_token' : "D9ucDmqohHn6Jz8JcCyWk4R25ifTnylmgznE3qlo",
+                     'id': id
+                  }
+               }).then((response) => {
+                  Swal.fire({
+                     icon: 'success',
+                     title: 'Berhasil',
+                     text: response.data.message,
+                  });
+                  table.ajax.reload();
+               })
+            }
+         });
+      }
+
+
+
+   </script>
+
+    <!-- Template JS File -->
+    <script src="http://127.0.0.1:8000/js/scripts.js"></script>
+    <script src="http://127.0.0.1:8000/js/custom.js"></script>
+</body>
+
+</html>
